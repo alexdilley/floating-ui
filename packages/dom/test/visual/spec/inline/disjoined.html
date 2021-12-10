@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<link rel="stylesheet" href="../../styles.css" />
+
+<style>
+  #reference {
+    all: unset;
+    outline: 1px solid;
+  }
+
+  #reference:focus-visible {
+    outline: 3px solid;
+  }
+
+  #floating {
+    display: none;
+  }
+</style>
+
+<div id="clip">
+  <p>
+    Lorem ipsum dolor sit amet, consectetur.
+    <span tabindex="0" id="reference"
+      >Ut placerat sapien sit amet efficitur</span
+    >
+    Ut placerat sapien sit amet efficitur laoreet. Phasellus lobortis dapibus
+  </p>
+  <div id="floating">Float</div>
+</div>
+
+<script type="module">
+  import {computePosition, makeInlineAware} from '../../dist/index.mjs';
+  import {position} from '../../utils.mjs';
+
+  function handleEvent(event) {
+    floating.style.display = 'grid';
+
+    computePosition(reference, floating, {
+      placement: 'top',
+    }).then(({placement}) => {
+      const virtualEl = makeInlineAware({
+        element: reference,
+        placement,
+        x: event.clientX,
+        y: event.clientY,
+      });
+
+      computePosition(virtualEl, floating, {
+        placement,
+      }).then(position);
+    });
+  }
+
+  reference.addEventListener('mouseenter', handleEvent);
+  reference.addEventListener('focus', handleEvent);
+</script>

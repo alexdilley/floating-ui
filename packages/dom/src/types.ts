@@ -16,4 +16,5 @@ export {
 } from '@floating-ui/core';
 
 export {computePosition} from './';
+export {makeInlineAware} from './makeInlineAware';
 export {getScrollParents} from './utils/getScrollParents';

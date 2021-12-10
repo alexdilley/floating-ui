@@ -24,3 +24,4 @@ export {
 } from '@floating-ui/core';
 
 export {getScrollParents} from './utils/getScrollParents';
+export {makeInlineAware} from './makeInlineAware';
