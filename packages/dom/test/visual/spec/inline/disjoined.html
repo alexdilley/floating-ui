@@ -35,20 +35,11 @@
   function handleEvent(event) {
     floating.style.display = 'grid';
 
-    computePosition(reference, floating, {
-      placement: 'top',
-    }).then(({placement}) => {
-      const virtualEl = makeInlineAware({
-        element: reference,
-        placement,
-        x: event.clientX,
-        y: event.clientY,
-      });
-
-      computePosition(virtualEl, floating, {
-        placement,
-      }).then(position);
-    });
+    makeInlineAware(computePosition, {x: event.clientX, y: event.clientY})(
+      reference,
+      floating,
+      {placement: 'right'}
+    ).then(position);
   }
 
   reference.addEventListener('mouseenter', handleEvent);
